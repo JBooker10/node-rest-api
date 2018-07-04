@@ -3,6 +3,7 @@ const https = require('https');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
+const handlers = require('./lb/handlers');
 const fs  = require('fs');
 const port = 3000;
 
@@ -86,24 +87,7 @@ const unifiedServer = (req,res) => {
      });
 }
 
-
-
-// Handlers
-const handlers = {};
-
-// Sample Handler
-handlers.sample = (data, callback) => {
-    // Callback an http status code and payload object
-    callback(406,{'name' : 'sample handler'})
-};
-
-// Not found handler
-handlers.notFound = (data, callback) => {
-    callback(404)
-};
-
-
-// Define a request router
 const router = {
-    'sample' : handlers.sample
-};
+    'ping': handlers.ping,
+    'users': handlers.users
+}
