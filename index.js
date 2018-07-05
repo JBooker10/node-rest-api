@@ -2,10 +2,12 @@ const http = require('http');
 const https = require('https');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
-const config = require('./config');
-const handlers = require('./lb/handlers');
+const config = require('./lib/config');
+const handlers = require('./lib/handlers');
+const helpers = require('./lib/helpers');
 const fs  = require('fs');
-const port = 3000;
+
+
 
 // Instantiating HTTP Server
 const httpServer = http.createServer((req, res) => {
@@ -57,12 +59,12 @@ const unifiedServer = (req,res) => {
          let chosenHandler = typeof(router[trimmedPath]) != 'undefined' ? router[trimmedPath] : handlers.notFound
  
          //Construct data object to send to handler
-         let data = {
+         const data = {
              'trimmedPath' : trimmedPath,
              'queryStringObj' : queryStringObj,
-             'method' : HTTPmethod,
+             'HTTPmethod' : HTTPmethod,
              'headers' : headers,
-             'payload' : buffer
+             'payload' : helpers.parseJsonToObject(buffer)
          };
          
          // Route the request to the handler specified in the router
@@ -91,3 +93,4 @@ const router = {
     'ping': handlers.ping,
     'users': handlers.users
 }
+
