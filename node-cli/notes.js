@@ -16,7 +16,6 @@ const saveNotes = (notes) => {
 }
 
 
-
 // Adds a note to json file
 const addNote = (title, body) => {
     let notes = fetchNotes();
@@ -38,7 +37,7 @@ const addNote = (title, body) => {
 
 // Retreives all notes from json file
 const getAll = (title) => {
-    console.log('retrieve all notes', title)
+   return fetchNotes();
 }
 
 // Gets note from json file
@@ -61,7 +60,8 @@ const removeNote = (title) => {
 }
 
 const logNote = (note) => {
-    console.log('--');
+    // Break on this line and use repl to output note
+    console.log('----');
     console.log(`Title: ${note.title}`)
     console.log(`Body: ${note.body}`);
 }
@@ -73,3 +73,4 @@ module.exports = {
     removeNote: removeNote,
     logNote: logNote
 }
+
