@@ -17,13 +17,26 @@ const command = argv._[0];
 console.log(process.argv)
 
 if( command === 'add') {
-    notes.addNote(argv.title, argv.body)
+
+    let note = notes.addNote(argv.title, argv.body)
+    notes.logNote(note)
+
 } else if ( command === 'list') {
+
     notes.getAll(argv.title)
+
 } else if (command === 'read') {
-    notes.getNote(argv.title)
+
+    let note = notes.getNote(argv.title)
+    notes.logNote(note)
+  
+
 } else if (command === 'remove') {
-    notes.removeNote(argv.title)
+
+    let noteRemoved = notes.removeNote(argv.title)
+    let message = noteRemoved ? 'Note was removed' : 'Note not found';
+    console.log(message);
+
 } else {
     console.log('Command not recognized')
 }
